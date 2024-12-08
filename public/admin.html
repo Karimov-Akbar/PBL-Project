@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: -250px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #98C5E9;
+            color: white;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding-top: 20px;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar .menu-item {
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .sidebar .menu-item a {
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .toggle-btn {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            background-color: #98C5E9;
+            color: white;
+            padding: 10px 15px;
+            border: 0;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1001;
+        }
+
+        .toggle-btn:focus{
+            outline: 0;
+            outline-offset: 0;
+        }
+
+        .container {
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+            padding: 20px;
+        }
+
+        .container.shifted {
+            margin-left: 250px;
+        }
+
+        .table {
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .modal-header, .modal-footer {
+            background-color: #779bb8;
+            color: #fff;
+        }
+
+        .btn-primary {
+            background-color: #87aecf;
+            border: none;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .page-title{
+            padding: 30px;
+        }
+        
+        #loginPanel {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+
+            .container.shifted {
+                margin-left: 0;
+            }
+
+            .toggle-btn {
+                top: 10px;
+                left: 10px;
+            }
+
+            .table-responsive {
+                overflow-x: auto;
+            }
+
+            .btn {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="loginPanel">
+    <h2 class="text-center mb-4">Admin Login</h2>
+    <form id="adminLoginForm">
+        <div class="form-group">
+            <label for="adminUsername">Username</label>
+            <input type="text" class="form-control" id="adminUsername" required>
+        </div>
+        <div class="form-group">
+            <label for="adminPassword">Password</label>
+            <input type="password" class="form-control" id="adminPassword" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+    </form>
+</div>
+
+<div id="adminContent" style="display: none;">
+    <div class="container mt-4">
+        <h1 class="page-title">
+            <div class="lead"></div>
+            <div class="border-style"></div>
+        </h1>
+    </div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="menu-item">
+            <a href="/admin/home" onclick="handleNavigation(event, 'home')"><i class="fas fa-home"></i> Home</a>
+        </div>
+        <div class="menu-item">
+            <a href="/admin/users" onclick="handleNavigation(event, 'users')"><i class="fas fa-users"></i> Users</a>
+        </div>
+        <div class="menu-item">
+            <a href="/admin/news" onclick="handleNavigation(event, 'news')"><i class="fas fa-pencil-alt"></i> News</a>
+        </div>
+        <div class="menu-item">
+            <a href="/admin/gallery" onclick="handleNavigation(event, 'gallery')"><i class="fas fa-images"></i> Gallery</a>
+        </div>
+        <div class="menu-item">
+            <a href="/admin/products" onclick="handleNavigation(event, 'products')"><i class="fas fa-shopping-bag"></i> Products</a>
+        </div>
+        <div class="menu-item">
+            <a href="/admin"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <!-- Toggle button for sidebar -->
+    <button id="toggleSidebar" class="toggle-btn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Main content -->
+    <div class="container" id="mainContent">
+        <!-- Home Section -->
+        <div id="homeSection" class="content-section active">
+            <h2 class="title-block">Welcome to the Admin Dashboard</h2>
+            <p class="sublead">Select a section from the sidebar to manage your site.</p>
+        </div>
+
+        <!-- Users Section -->
+        <div id="usersSection" class="content-section">
+            <h2>User Management</h2>
+            <button class="btn btn-primary mb-3" onclick="loadUsers()">Load Users</button>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- News Section -->
+        <div id="newsSection" class="content-section">
+            <h2>News Management</h2>
+            <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addNewsModal">Add News</button>
+        
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Image</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="news-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div id="gallerySection" class="content-section">
+            <h2>Gallery Management</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="imageUpload">Upload New Image</label>
+                            <input type="file" id="imageUpload" name="image" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+                <div class="col-md-8">
+                    <div id="galleryItems" class="row"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div id="productsSection" class="content-section">
+            <h2>Products Management</h2>
+            <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addProductModal">Add Product</button>
+            
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editUserId">
+                    <div class="form-group">
+                        <label for="editUsername">Username</label>
+                        <input type="text" class="form-control" id="editUsername">
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" class="form-control" id="editEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="editPassword">New Password (leave blank to keep current)</label>
+                        <input type="password" class="form-control" id="editPassword">
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="showPasswordCheck" onclick="togglePasswordVisibility()">
+                        <label class="form-check-label" for="showPasswordCheck">Show Password</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveChanges()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add News Modal -->
+    <div class="modal fade" id="addNewsModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add News</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="newsForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="newsTitle">Title</label>
+                            <input type="text" class="form-control" id="newsTitle" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsImage">Image</label>
+                            <input type="file" class="form-control-file" id="newsImage" name="image" accept="image/*" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsContent">Content</label>
+                            <textarea class="form-control" id="newsContent" name="content" rows="10" required></textarea>
+                        </div>
+                        <input type="hidden" id="newsId" name="id">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveNews()">Save News</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Product</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="productForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="productName">Name</label>
+                            <input type="text" class="form-control" id="productName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productDescription">Description</label>
+                            <textarea class="form-control" id="productDescription" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="productPrice">Price</label>
+                            <input type="number" class="form-control" id="productPrice" name="price" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Category</label>
+                            <select class="form-control" id="productCategory" name="category_id" required>
+                                <option value="1">Outerwear</option>
+                                <option value="2">Underwear</option>
+                                <option value="3">Shoes</option>
+                                <option value="4">Accessories</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productImage">Image</label>
+                            <input type="file" class="form-control-file" id="productImage" name="image" accept="image/*" required>
+                        </div>
+                        <input type="hidden" id="productId" name="id">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function handleNavigation(event, sectionId) {
+        event.preventDefault();
+        $('.content-section').removeClass('active');
+        $(`#${sectionId}Section`).addClass('active');
+        if (sectionId === 'users') {
+            loadUsers();
+        } else if (sectionId === 'news') {
+            loadNews();
+        } else if (sectionId === 'gallery') {
+            loadGallery();
+        } else if (sectionId === 'products') {
+            loadProducts();
+        }
+        $('#sidebar').removeClass('open');
+        $('#mainContent').removeClass('shifted');
+    }
+
+    function showSection(sectionId) {
+        $('.content-section').removeClass('active');
+        $(`#${sectionId}Section`).addClass('active');
+        if (sectionId === 'users') {
+            loadUsers();
+        } else if (sectionId === 'news') {
+            loadNews();
+        } else if (sectionId === 'gallery') {
+            loadGallery();
+        } else if (sectionId === 'products') {
+            loadProducts();
+        }
+        $('#sidebar').removeClass('open');
+        $('#mainContent').removeClass('shifted');
+    }
+
+    function loadUsers() {
+        $.ajax({
+            url: '/api/users',
+            method: 'GET',
+            success: function(users) {
+                const tbody = $('#users-table-body');
+                tbody.empty();
+                users.forEach(user => {
+                    tbody.append(`
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.username}</td>
+                            <td>${user.email}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning" onclick="editUser(${user.id}, '${user.username}', '${user.email}')">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteUser(${user.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            }
+        });
+    }
+
+    function editUser(id, username, email) {
+        $('#editUserId').val(id);
+        $('#editUsername').val(username);
+        $('#editEmail').val(email);
+        $('#editPassword').val('');
+        $('#showPasswordCheck').prop('checked', false);
+        $('#editPassword').attr('type', 'password');
+        $('#editModal').modal('show');
+    }
+
+    function saveChanges() {
+        const id = $('#editUserId').val();
+        const username = $('#editUsername').val();
+        const email = $('#editEmail').val();
+        const password = $('#editPassword').val();
+
+        const data = { username, email };
+        if (password) data.password = password;
+
+        $.ajax({
+            url: `/api/users/${id}`,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function() {
+                $('#editModal').modal('hide');
+                loadUsers();
+            }
+        });
+    }
+
+    function deleteUser(id) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            $.ajax({
+                url: `/api/users/${id}`,
+                method: 'DELETE',
+                success: function() {
+                    loadUsers();
+                }
+            });
+        }
+    }
+
+    function togglePasswordVisibility() {
+        const passwordField = $('#editPassword');
+        const isChecked = $('#showPasswordCheck').is(':checked');
+        passwordField.attr('type', isChecked ? 'text' : 'password');
+    }
+
+    function loadGallery() {
+        $.ajax({
+            url: '/api/gallery',
+            method: 'GET',
+            success: function(images) {
+                const gallery = $('#galleryItems');
+                gallery.empty();
+                images.forEach(image => {
+                    gallery.append(`
+                        <div class="col-md-4 mb-3">
+                            <img src="${image.url}" alt="${image.filename}" class="img-fluid">
+                            <button class="btn btn-danger btn-sm mt-2" onclick="deleteImage('${image.id}')">Delete</button>
+                        </div>
+                    `);
+                });
+            }
+        });
+    }
+
+    function deleteImage(id) {
+        if (confirm('Are you sure you want to delete this image?')) {
+            $.ajax({
+                url: `/api/gallery/${id}`,
+                method: 'DELETE',
+                success: function() {
+                    loadGallery();
+                }
+            });
+        }
+    }
+
+    function loadNews() {
+        $.ajax({
+            url: '/api/news',
+            method: 'GET',
+            success: function(news) {
+                const tbody = $('#news-table-body');
+                tbody.empty();
+                news.forEach(item => {
+                    tbody.append(`
+                        <tr>
+                            <td>${item.id}</td>
+                            <td>${item.title}</td>
+                            <td>
+                                <img src="/uploads/${item.image}" 
+                                     height="50" 
+                                     alt="${item.title}"
+                                     onerror="this.src='/images/placeholder.jpg'"
+                                     style="object-fit: cover; width: 50px;"
+                                >
+                            </td>
+                            <td>${new Date(item.date).toLocaleDateString()}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning" onclick="editNews(${item.id})">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteNews(${item.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            }
+        });
+    }
+
+    function saveNews() {
+        const formData = new FormData($('#newsForm')[0]);
+        const newsId = $('#newsId').val();
+        const url = newsId ? `/api/news/${newsId}` : '/api/news';
+        const method = newsId ? 'PUT' : 'POST';
+
+        $.ajax({
+            url: url,
+            method: method,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function() {
+                $('#addNewsModal').modal('hide');
+                loadNews();
+                $('#newsForm')[0].reset();
+                $('#newsId').val('');
+            },
+            error: function(err) {
+                alert('Error saving news: ' + err.responseText);
+            }
+        });
+    }
+
+    function editNews(id) {
+        $.ajax({
+            url: `/api/news/${id}`,
+            method: 'GET',
+            success: function(news) {
+                $('#newsId').val(news.id);
+                $('#newsTitle').val(news.title);
+                $('#newsContent').val(news.content);
+                $('#addNewsModal').modal('show');
+            }
+        });
+    }
+
+    function deleteNews(id) {
+        if (confirm('Are you sure you want to delete this news item?')) {
+            $.ajax({
+                url: `/api/news/${id}`,
+                method: 'DELETE',
+                success: function() {
+                    loadNews();
+                }
+            });
+        }
+    }
+
+    function loadProducts() {
+        $.ajax({
+            url: '/api/products',
+            method: 'GET',
+            success: function(products) {
+                const tbody = $('#products-table-body');
+                tbody.empty();
+                products.forEach(product => {
+                    tbody.append(`
+                        <tr>
+                            <td>${product.id}</td>
+                            <td><img src="${product.image_url}" height="50" alt="${product.name}"></td>
+                            <td>${product.name}</td>
+                            <td>${getCategoryName(product.category_id)}</td>
+                            <td>$${product.price.toFixed(2)}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning" onclick="editProduct(${product.id})">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteProduct(${product.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            }
+        });
+    }
+
+    function getCategoryName(categoryId) {
+        const categories = {
+            1: 'Outerwear',
+            2: 'Underwear',
+            3: 'Shoes',
+            4: 'Accessories'
+        };
+        return categories[categoryId] || 'Unknown';
+    }
+
+    function saveProduct() {
+        const formData = new FormData($('#productForm')[0]);
+        const productId = $('#productId').val();
+        const url = productId ? `/api/products/${productId}` : '/api/products';
+        const method = productId ? 'PUT' : 'POST';
+
+        $.ajax({
+            url: url,
+            method: method,
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function() {
+                $('#addProductModal').modal('hide');
+                loadProducts();
+                $('#productForm')[0].reset();
+                $('#productId').val('');
+            },
+            error: function(err) {
+                alert('Error saving product: ' + err.responseText);
+            }
+        });
+    }
+
+    function editProduct(id) {
+        $.ajax({
+            url: `/api/products/${id}`,
+            method: 'GET',
+            success: function(product) {
+                $('#productId').val(product.id);
+                $('#productName').val(product.name);
+                $('#productDescription').val(product.description);
+                $('#productPrice').val(product.price);
+                $('#productCategory').val(product.category_id);
+                $('#addProductModal').modal('show');
+            }
+        });
+    }
+
+    function deleteProduct(id) {
+        if (confirm('Are you sure you want to delete this product?')) {
+            $.ajax({
+                url: `/api/products/${id}`,
+                method: 'DELETE',
+                success: function() {
+                    loadProducts();
+                }
+            });
+        }
+    }
+
+    function logout() {
+        $('#adminContent').hide();
+        $('#loginPanel').show();
+    }
+
+    $(document).ready(function() {
+        $('#adminLoginForm').submit(function(e) {
+            e.preventDefault();
+            const username = $('#adminUsername').val();
+            const password = $('#adminPassword').val();
+            
+            $.ajax({
+                url: '/admin/login',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ username, password }),
+                success: function(response) {
+                    if (response.success) {
+                        $('#loginPanel').hide();
+                        $('#adminContent').show();
+                    } else {
+                        alert('Invalid username or password');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        });
+
+        $('#toggleSidebar').click(function () {
+            $('#sidebar').toggleClass('open');
+            $('#mainContent').toggleClass('shifted');
+        });
+
+        $('#uploadForm').submit(function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            $.ajax({
+                url: '/api/gallery',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function() {
+                    $('#imageUpload').val('');
+                    loadGallery();
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
