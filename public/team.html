@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
   
-<!-- Mirrored from html.rudhisasmito.com/prosoccer/team.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Sep 2024 04:37:12 GMT -->
 <head>
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
-    <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Team</title>
     <meta name="description" content="Pro Soccer - Football Club Template. It is built using bootstrap 3.3.2 framework, works totally responsive, easy to customise, well commented codes and seo friendly.">
@@ -40,13 +38,7 @@
 	Custom Stylesheet
 	=============================================== -->
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
-	
-	
-	
-    <script type="text/javascript" src="js/modernizr.min.js"></script>
-	
-	
-
+  <script type="text/javascript" src="js/modernizr.min.js"></script>
 </head>
 
 <body>
@@ -174,13 +166,8 @@
       frameborder="0" scrolling="no"></iframe>
 	</div>
 	
-	
-	
-	
-	
 	<!-- FOOTER SECTION -->
 	<div class="footer">
-	
 		<div class="f-desc">
 			<div class="container">
 				<div class="row">
@@ -211,7 +198,6 @@
 										<i class="fa fa-pinterest"></i>
 									</div>
 								</a>
-								
 							</div>
 						</div>
 					</div>
@@ -274,16 +260,12 @@
 									<div class="form-group">
 										<button type="submit" class="btn btn-default">SEND</button>
 									</div>
-									
 								</form>
 							</div>
-							
 						</div>
 					</div>
-					
 				</div>
 			</div>
-				
 		</div>
 		
 		<div class="fcopy">
@@ -295,11 +277,7 @@
 				</div>
 			</div>
 		</div>
-		
 	</div>
-	
-	
-	
 	
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type='text/javascript' src='https://maps.google.com/maps/api/js?sensor=false&amp;ver=4.1.5'></script>
@@ -308,252 +286,6 @@
 	<script type="text/javascript" src="js/owl.carousel.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-hover-dropdown.min.js"></script>
 	<script type="text/javascript" src="js/jquery.magnific-popup.min.js"></script>
-	
-	<script type="text/javascript" src="js/script.js"></script>
-	
-	
-	<script>
-		// Ваш API-ключ
-		const apiKey = '4cc444ebeed6d52a8638ac9390333f48';
-		const teamId = 50;  // Манчестер Сити
-   		const season = 2022;  // Сезон 2022
-  		let currentPage = 1;  // Текущая страница
-  		let playersData = [];  // Список всех игроков
-  		let sortCriterion = 'name';  // Текущий критерий сортировки
-	  
-		// Получение информации о Манчестер Сити
-		fetch("https://v3.football.api-sports.io/teams?id=50", {
-		  method: 'GET',
-		  headers: {
-			'x-apisports-key': apiKey
-		  }
-		})
-		.then(response => response.json())
-		.then(data => {
-		  const teamInfo = data.response[0].team;
-		  const venueInfo = data.response[0].venue;
-	  
-		  // Отображение информации о команде
-		  document.getElementById('team-info').innerHTML = `
-			<h2>${teamInfo.name}</h2>
-			<img src="${teamInfo.logo}" alt="${teamInfo.name} Logo" style="width:100px;">
-			<p>Основан: ${teamInfo.founded}</p>
-			<p>Город: ${venueInfo.city}</p>
-			<p>Стадион: ${venueInfo.name}</p>
-			<p>Вместимость стадиона: ${venueInfo.capacity}</p>
-		  `;
-		})
-		.catch(error => console.error('Error fetching team data:', error));
-	  
-		// Получение информации о Премьер-лиге
-		fetch("https://v3.football.api-sports.io/leagues?id=39", {
-		  method: 'GET',
-		  headers: {
-			'x-apisports-key': apiKey
-		  }
-		})
-		.then(response => response.json())
-		.then(data => {
-		  const leagueInfo = data.response[0].league;
-		  
-		  // Отображение информации о лиге
-		  document.getElementById('league-info').innerHTML = `
-			<h2>${leagueInfo.name}</h2>
-			<img src="${leagueInfo.logo}" alt="${leagueInfo.name} Logo" style="width:100px;">
-			<p>Страна: Англия</p>
-			<p>Сезон: 2022</p>
-		  `;
-		})
-		.catch(error => console.error('Error fetching league data:', error));
-
-		fetch("https://v3.football.api-sports.io/fixtures?team=50&season=2022", {
-    method: 'GET',
-    headers: {
-      'x-apisports-key': apiKey
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    const fixtures = data.response;
-
-    // Формирование HTML для отображения матчей
-    let fixturesHTML = '<h2>Предстоящие матчи Манчестер Сити</h2><ul>';
-    fixtures.forEach(fixture => {
-      const homeTeam = fixture.teams.home.name;
-      const awayTeam = fixture.teams.away.name;
-      const date = new Date(fixture.fixture.date).toLocaleDateString();
-
-      fixturesHTML += `
-        <li>
-          <strong>${date}</strong>: ${homeTeam} vs ${awayTeam}
-          <br>Стадион: ${fixture.fixture.venue.name}, Город: ${fixture.fixture.venue.city}
-        </li>
-      `;
-    });
-    fixturesHTML += '</ul>';
-
-    // Вставляем расписание матчей на страницу
-    document.getElementById('fixtures-list').innerHTML = fixturesHTML;
-  })
-  .catch(error => console.error('Error fetching fixtures data:', error));
-
-  fetch("https://v3.football.api-sports.io/standings?league=39&season=2022", {
-    method: 'GET',
-    headers: {
-      'x-apisports-key': apiKey
-    }
-  })
-  .then(response => response.json())
-  .then(data => {
-    const standings = data.response[0].league.standings[0];
-
-    // Формирование HTML для отображения турнирной таблицы
-    let standingsHTML = '<h2>Турнирная таблица Премьер-лиги (2022)</h2>';
-    standingsHTML += '<table>';
-    standingsHTML += `
-      <tr>
-        <th>Место</th>
-        <th>Команда</th>
-        <th>Игры</th>
-        <th>Победы</th>
-        <th>Ничьи</th>
-        <th>Поражения</th>
-        <th>Очки</th>
-      </tr>
-    `;
-
-    standings.forEach(team => {
-      standingsHTML += `
-        <tr>
-          <td>${team.rank}</td>
-          <td>${team.team.name}</td>
-          <td>${team.all.played}</td>
-          <td>${team.all.win}</td>
-          <td>${team.all.draw}</td>
-          <td>${team.all.lose}</td>
-          <td>${team.points}</td>
-        </tr>
-      `;
-    });
-
-    standingsHTML += '</table>';
-
-    // Вставляем турнирную таблицу на страницу
-    document.getElementById('league-standings').innerHTML = standingsHTML;
-  })
-  async function loadPlayers(page = 1) {
-    const response = await fetch(`https://v3.football.api-sports.io/players?team=${teamId}&season=${season}&page=${page}`, {
-      method: 'GET',
-      headers: {
-        'x-apisports-key': apiKey
-      }
-    });
-    const data = await response.json();
-    return data.response;
-  }
-
-  // Получение и объединение данных всех страниц
-  async function fetchAllPlayers() {
-    playersData = [];
-    let page = 1;
-    let hasMorePlayers = true;
-
-    while (hasMorePlayers) {
-      const players = await loadPlayers(page);
-      if (players.length === 0) {
-        hasMorePlayers = false;
-      } else {
-        playersData.push(...players);
-        page++;
-      }
-    }
-
-    renderPlayers();
-  }
-
-  // Функция для отображения игроков
-  function renderPlayers() {
-    const playersList = document.getElementById('players-list');
-    let sortedPlayers = [...playersData];
-
-    // Сортировка игроков
-    sortedPlayers.sort((a, b) => {
-      const statsA = a.statistics[0];
-      const statsB = b.statistics[0];
-
-      switch (sortCriterion) {
-        case 'goals':
-          return (statsB.goals.total || 0) - (statsA.goals.total || 0);
-        case 'assists':
-          return (statsB.goals.assists || 0) - (statsA.goals.assists || 0);
-        case 'position':
-          return statsA.games.position.localeCompare(statsB.games.position);
-        default:  // По имени
-          return a.player.name.localeCompare(b.player.name);
-      }
-    });
-
-    // Пагинация: отображение по 10 игроков на странице
-    const playersPerPage = 10;
-    const start = (currentPage - 1) * playersPerPage;
-    const end = start + playersPerPage;
-    const currentPlayers = sortedPlayers.slice(start, end);
-
-    // Формирование HTML для игроков
-    let playersHTML = '<ul>';
-    currentPlayers.forEach(playerData => {
-      const player = playerData.player;
-      const stats = playerData.statistics[0];
-
-      playersHTML += `
-        <li class="player-card">
-          <img src="${player.photo}" alt="${player.name}" class="player-photo">
-          <div class="player-info">
-            <strong>${player.name}</strong> — Позиция: ${stats.games.position}
-            <br>Номер: ${stats.games.number || 'N/A'}, Возраст: ${player.age}
-            <br>Голы: ${stats.goals.total || 0}, Ассисты: ${stats.goals.assists || 0}
-          </div>
-        </li>
-      `;
-    });
-    playersHTML += '</ul>';
-
-    playersList.innerHTML = playersHTML;
-
-    // Обновление состояния кнопок пагинации
-    document.getElementById('current-page').textContent = currentPage;
-    document.getElementById('prev-page').disabled = currentPage === 1;
-    document.getElementById('next-page').disabled = end >= playersData.length;
-  }
-
-  // Событие для смены страницы
-  document.getElementById('prev-page').addEventListener('click', () => {
-    if (currentPage > 1) {
-      currentPage--;
-      renderPlayers();
-    }
-  });
-
-  document.getElementById('next-page').addEventListener('click', () => {
-    if (currentPage * 10 < playersData.length) {
-      currentPage++;
-      renderPlayers();
-    }
-  });
-
-  // Событие для смены критерия сортировки
-  document.getElementById('sort-select').addEventListener('change', (event) => {
-    sortCriterion = event.target.value;
-    renderPlayers();
-  });
-
-  // Инициализация загрузки игроков
-  fetchAllPlayers();
-	  </script>
-
-	  
-	  
+	<script type="text/javascript" src="js/script.js"></script>  
 </body>
-
-<!-- Mirrored from html.rudhisasmito.com/prosoccer/team.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Sep 2024 04:37:12 GMT -->
 </html>
