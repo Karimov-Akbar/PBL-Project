@@ -727,10 +727,6 @@ strong, b{
 /* ==========================
 5. About
 ============================= */
-.section.about{
-	padding-bottom:60px;
-	background-color: #f4f4f4;
-}
 .about .page-title .lead {
     color: #001838;
 }
@@ -1341,7 +1337,7 @@ td.tw10{
 	-webkit-transition: all ease .25s;
 	        transition: all ease .25s;
 	width: 100%;
-	color:#f00;
+	color:white;
 }
 .w-item a .project-info .project-icon .fa {
 	font-size:40px;
