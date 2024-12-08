@@ -394,15 +394,15 @@ strong, b{
 	display: none;
 }
 .navbar-brand {
-	margin-top: -60px;
+	margin-top: -20px;
 }
 .navbar-main.stiky  .navbar-brand {
 	margin-top: -15px;
 }
 .navbar-main .navbar-brand > img {
 	width: 100%;
-    -webkit-transition: 0.2s all linear;
-	        transition: 0.2s all linear;
+  -webkit-transition: 0.2s all linear;
+	transition: 0.2s all linear;
 }
 .navbar-main.stiky .navbar-brand > img {
     width: 60%;
