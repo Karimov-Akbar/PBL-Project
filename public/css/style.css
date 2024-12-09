@@ -1,30 +1,3 @@
-/*
-Template Name: Prosoccer - Laundry Business Html Template
-Template URI: rudhisasmito.com/demo/prosoccer
-Author: Rudhi Sasmito
-Author URI: https://www.behance.net/rudhisasmito
-Version: 1.0
------------------------------------------------------------------
-
-CSS Style Structure
-1. General
-2. Navbar
-3. Banner
-4. Match Facts
-5. About
-6. Our Player / Team
-7. Gallery
-8. Blog / News
-9. Client
-10. FAQ
-11. Shop
-12. Contact
-13. Footer
-
-
-*/
-
-
 @font-face {
     font-family: 'bebas_neue';
     src: url('../fonts/bebasneue_regular-webfont.eot');
@@ -38,14 +11,6 @@ CSS Style Structure
 
 }
 
-
-/* ==========================
-RESET
-============================= */
-/**
- * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
- * http://cssreset.com
- */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -66,7 +31,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
+
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -89,8 +54,6 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
-
 
 body{
 	margin:0;
@@ -353,7 +316,6 @@ p {
 	background-size: cover;
 }
 
-/* Box */
 .box-wrap {
 	width: 85%;
 	margin: 0 auto;
@@ -505,10 +467,10 @@ strong, b{
 	font-size:18px;
 }
 
-
 /* ==========================
 3. Banner
 ============================= */
+
 .banner{
 	position:relative;
 }
@@ -552,7 +514,7 @@ strong, b{
 	background-color:#98C5E9;
 	color:#fff;
 }
-/* carousel */
+
 .carousel-caption {
     right: 0;
     left: 0;
@@ -667,10 +629,11 @@ strong, b{
 	content: "/\00a0";
 }
 
-
 /* ==========================
 4. Match Facts
 ============================= */
+
+
 .stat-facts{
 	background:url('../images/match.jpg') no-repeat center center; 
 	-webkit-background-size: cover; 
@@ -799,13 +762,7 @@ strong, b{
 	background: linear-gradient(to bottom, #f00 0%, #C92127 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f00', endColorstr='#C92127', GradientType=0 );
 }
-.collection-callout a:hover{
-	background: rgb(211, 0, 0);
-	color: #fff;
-}
-.collection-callout .fa{
-	margin-right: 20px;
-}
+
 .nav-tabs > li {
     float: left;
     margin-bottom: -1px;
@@ -821,13 +778,7 @@ strong, b{
 	font-weight: 700;
     font-size: 14px;
 }
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-    color: #fff;
-    cursor: default;
-    background-color: #f00;
-    border: 1px solid #ddd;
-    border-bottom-color: transparent;
-}
+
 .tab-content{
 	padding: 20px 20px;
 }
@@ -1072,199 +1023,6 @@ td.tw10{
 .player-item{
 	margin-bottom:40px;
 }
-.player-item .gambar{
-	position:relative;
-	z-index: 1;
-	background-color: #000;
-	overflow: hidden;
-}
-.player-item .gambar img{
-	-webkit-transform: scale(1,1);
-	-ms-transform: scale(1,1);
-	        transform: scale(1,1);
-	
-	-webkit-transition: 0.4s all linear;
-	        transition: 0.4s all linear;
-}
-.player-item:hover .gambar img{
-	filter: alpha(opacity=80);
-	opacity: .8;
-	
-	-webkit-transform: scale(1.05,1.05);
-	-ms-transform: scale(1.05,1.05);
-	        transform: scale(1.05,1.05);
-	-webkit-transition-timing-function: ease-out;
-	        transition-timing-function: ease-out;
-	-webkit-transition-duration: 250ms;
-	        transition-duration: 250ms;
-}
-.player-item .item-body{
-	background-color:#000;
-	border-top: 3px solid #f00;
-	position:relative;
-	display:block;
-	padding: 20px;
-}
-.player-item:hover .item-body{
-	background-color: #202020;
-}
-.player-item .item-body .name{
-	font-size: 18px;
-    color: #f00;
-    line-height: 24px;
-	margin-bottom: 10px;
-}
-.position{
-	font-size: 14px;
-    color: #999;
-    line-height: 22px;
-	font-style: italic;
-	display: inline-block;
-}
-.position span{
-	color: #fff;
-	font-style: normal;
-	font-weight: bold;
-	display: inline-block;
-	padding: 3px 10px;
-	margin-right: 10px;
-	border-radius: 4px;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-}
-.position .cf{
-	background: #F50607;
-	background: -moz-linear-gradient(top, #F50607 0%, #C2262C 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, #F50607), color-stop(100%, #C2262C));
-	background: -webkit-linear-gradient(top, #F50607 0%, #C2262C 100%);
-	background: -o-linear-gradient(top, #F50607 0%, #C2262C 100%);
-	background: -ms-linear-gradient(top, #F50607 0%, #C2262C 100%);
-	background: linear-gradient(to bottom, #F50607 0%, #C2262C 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F50607', endColorstr='#C2262C', GradientType=0 );
-}
-.position .gk{
-	background: #FBDD22;
-	background: -moz-linear-gradient(top, #FBDD22 0%, #F26324 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, #FBDD22), color-stop(100%, #F26324));
-	background: -webkit-linear-gradient(top, #FBDD22 0%, #F26324 100%);
-	background: -o-linear-gradient(top, #FBDD22 0%, #F26324 100%);
-	background: -ms-linear-gradient(top, #FBDD22 0%, #F26324 100%);
-	background: linear-gradient(to bottom, #FBDD22 0%, #F26324 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FBDD22', endColorstr='#F26324', GradientType=0 );
-}
-.position .cb{
-	background: #219FDA;
-	background: -moz-linear-gradient(top, #3DB9F3 0%, #086BA9 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, #3DB9F3), color-stop(100%, #086BA9));
-	background: -webkit-linear-gradient(top, #3DB9F3 0%, #086BA9 100%);
-	background: -o-linear-gradient(top, #3DB9F3 0%, #086BA9 100%);
-	background: -ms-linear-gradient(top, #3DB9F3 0%, #086BA9 100%);
-	background: linear-gradient(to bottom, #3DB9F3 0%, #086BA9 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3DB9F3', endColorstr='#086BA9', GradientType=0 );
-}
-.position .rmf{
-	background: #29A143;
-	background: -moz-linear-gradient(top, #82C23F 0%, #0C863C 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, #82C23F), color-stop(100%, #0C863C));
-	background: -webkit-linear-gradient(top, #82C23F 0%, #0C863C 100%);
-	background: -o-linear-gradient(top, #82C23F 0%, #0C863C 100%);
-	background: -ms-linear-gradient(top, #82C23F 0%, #0C863C 100%);
-	background: linear-gradient(to bottom, #82C23F 0%, #0C863C 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82C23F', endColorstr='#0C863C', GradientType=0 );
-}
-.player-pagination{
-	width: 100%;
-	display: block;
-}
-.player-pagination .owl-controls{
-	display: inline-block;
-}
-.player-pagination .owl-controls .owl-page{
-    display: inline-block;
-}
-.nav-tabs-team > li {
-    float: left;
-    margin-bottom: -1px;
-    width: 50%;
-}
-.nav-tabs-team > li > a {
-    border: 0;
-}
-.tab-team{
-	position: relative;
-}
-.tab-team .tab-pane{
-	position: relative;
-    z-index: 2;
-}
-.tab-team:before{
-	content: '';
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	background-color: rgba(0,0,0,.6)
-}
-.nav-team{
-	position: relative;
-    z-index: 3;
-}
-.teams{
-	float: left;
-    width: 33.3333%;
-}
-.teams-caro{
-	float: left;
-	width: 66.6666%;
-}
-.teams-image{
-	float: left;
-    width: 50%;
-}
-.teams-description{
-	float: left;
-    width: 50%;
-	color: #fff;
-	padding: 30px 20px 0 40px;
-	font-weight: 700;
-}
-.teams-description span{
-	color: #f00;
-}
-.team-tab .tab-content {
-    padding: 0px 0px;
-}
-.tab-team-bg{
-	background: url('../images/teambg.jpg') top center;
-	-webkit-background-size: cover; 
-	-moz-background-size: cover; 
-	-o-background-size: cover; 
-	background-size: cover;
-}
-.teams .position{
-	font-style: normal;
-	font-weight: bold;
-	background-color: rgba(255, 255, 255, .8);
-	display: block;
-    padding: 10px 20px;
-    border-bottom: 1px solid #fff;
-}
-.teams .position:last-child{
-	border-bottom: 0;
-}
-.teams .position.active{
-	background-color: rgba(255, 255, 255, 0);
-}
-.teams .position a{
-	display: block;
-	cursor: pointer;
-	color: #000;
-}
-.teams .position.active a{
-	color: #fff;
-}
 
 /* ==========================
 7. Gallery
@@ -1460,40 +1218,6 @@ td.tw10{
     font-weight: 700;
 }
 
-/* general */
-.pagination{
-	clear: both;
-	text-align: left;
-	margin-top: 20px;
-}
-.pagination a{
-	padding: 15px 20px;
-	margin-right: 5px;
-	margin-bottom: 5px;
-	color: #fff;
-	font-size: 18px;
-	display: inline-block;
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	background: #f00;
-	background: -moz-linear-gradient(top, #f00 0%, #C92127 100%);
-	background: -webkit-gradient(left top, left bottom, color-stop(0%, #f00), color-stop(100%, #C92127));
-	background: -webkit-linear-gradient(top, #f00 0%, #C92127 100%);
-	background: -o-linear-gradient(top, #f00 0%, #C92127 100%);
-	background: -ms-linear-gradient(top, #f00 0%, #C92127 100%);
-	background: linear-gradient(to bottom, #f00 0%, #C92127 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f00', endColorstr='#C92127', GradientType=0 );
-}
-.pagination a:hover,
-.pagination a.active{
-	background: rgb(211, 0, 0);
-	color: #fff;
-}
-.pagination .active a{
-	background: rgb(211, 0, 0);
-	color: #fff;
-}
 .loadmore{
 	clear: both;
 	text-align: center;
@@ -1513,7 +1237,6 @@ td.tw10{
 	background: #00132b;
 	color: #fff;
 }
-
 
 .image-wrap{
 	position: relative;
@@ -1679,21 +1402,7 @@ td.tw10{
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
 }
-.pagination > li > a, .pagination > li > span {
-    position: relative;
-    float: left;
-	padding: 13px 20px;
-    background-color: #fff;
-    border: none;
-	color: #666;
-	background: transparent;
-}
-.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
-    z-index: 2;
-    color: #fff;
-    cursor: default;
-    background-color: #f00;
-}
+
 
 .widget{
 	background-color: #F4F4F4;
@@ -2013,7 +1722,7 @@ td.tw10{
 }
 .sidenav a:hover,
 .sidenav a.active{
-	color: #f00;
+	color: #001838;
 }
 .shop-item{
 	margin-bottom: 40px;
@@ -2219,7 +1928,7 @@ p.help-block.text-danger li {
 }
 .no-touch #cd-zoom-in:hover,
 .no-touch #cd-zoom-out:hover {
-	background-color: rgba(255, 0, 0, 1);
+	background-color: #98C5E9;
 }
 #cd-zoom-in {
 	background-position: 50% 0;
@@ -2302,8 +2011,8 @@ p.help-block.text-danger li {
 }
 .footer-item{
 	line-height: 20px;
-    color: white;
-    font-weight: 400;
+	color: white;
+  font-weight: 400;
 	margin-bottom: 20px;
 	min-height: 250px;
 }
@@ -2332,9 +2041,9 @@ p.help-block.text-danger li {
 }
 .footer-title{
 	font-size: 18px;
-    line-height: 22px;
-    color: #FFFFFF;
-    position:relative;
+  line-height: 22px;
+  color: #FFFFFF;
+  position:relative;
 	padding: 10px 0;
 	margin-bottom: 40px;
 }
@@ -2376,9 +2085,8 @@ p.help-block.text-danger li {
     margin-top: 5px;
 }
 .sitemap{
-	
-	-webkit-column-count: 2; /* Chrome, Safari, Opera */
-    -moz-column-count: 2; /* Firefox */
+	-webkit-column-count: 2;
+    -moz-column-count: 2;
     column-count: 2;
 }
 .sitemap:after{
