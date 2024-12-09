@@ -229,10 +229,6 @@ h3, h4, h5 {
 		padding: 6px 35px;
 		font-weight:bold;
 }
-.btn-default:hover {
-    background-color: #001838;
-		color:#fff;
-}
 .bg-grey{
 	background-color: #E9E9E9;
 }
