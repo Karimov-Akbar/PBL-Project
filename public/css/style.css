@@ -739,7 +739,7 @@ strong, b{
 	margin-right: 20px;
 }
 #about-caro .owl-controls .owl-page span{
-	background: #f00;
+	background: #98C5E9;
 	margin: 5px 4px; 
 }
 
@@ -1919,7 +1919,7 @@ td.tw10{
 }
 .panel-faq .panel-default > .panel-heading {
     color: #fff;
-    background-color: #f00;
+    background-color: #98C5E9;
     border-color: #ddd;
     border:0;
 	border-top-left-radius: 0;
@@ -1935,7 +1935,7 @@ td.tw10{
 	
 }
 .panel-faq .panel-default > .panel-heading.active {
-    background-color: #000;
+    background-color: #001838;
 }
 .panel-faq .panel-default > .panel-heading.active:before {
     content: "\f106";
@@ -1977,7 +1977,7 @@ td.tw10{
 	list-style:none;
 }
 .faq-list li .fa{
-	color: #f00;
+	color: #001838;
     font-size: 14px;
 	margin-right:10px;
 }
@@ -2321,8 +2321,8 @@ p.help-block.text-danger li {
     border-radius: 50%;
 }
 .footer-sosmed .item:hover{
-	background-color:#fff;
-	color:rgb(211, 0, 0);
+	background-color:#98C5E9;
+	color:white;
 }
 .footer-sosmed .item .fa{
 	font-size:16px;
