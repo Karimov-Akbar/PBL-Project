@@ -71,7 +71,7 @@ app.get('/:page', (req, res) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
