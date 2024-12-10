@@ -10,6 +10,7 @@
     <link rel="shortcut icon" href="images/favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.tiny.cloud/1/ejkkmc4vq5we4cyeyro44m46qeb2gj8h5y5zoqgjq77q4rin/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         body {
             background-color: #f4f6f9;
@@ -337,7 +338,7 @@
                         </div>
                         <div class="form-group">
                             <label for="newsContent">Content</label>
-                            <textarea class="form-control" id="newsContent" name="content" rows="10" required></textarea>
+                            <textarea class="form-control" id="newsContent" name="content" required></textarea>
                         </div>
                         <input type="hidden" id="newsId" name="id">
                     </form>
@@ -403,6 +404,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+    tinymce.init({
+        selector: '#newsContent',
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+        height: 300
+    });
+
     function handleNavigation(event, sectionId) {
         event.preventDefault();
         $('.content-section').removeClass('active');
@@ -578,6 +586,8 @@
         const url = newsId ? `/api/news/${newsId}` : '/api/news';
         const method = newsId ? 'PUT' : 'POST';
 
+        formData.set('content', tinymce.get('newsContent').getContent());
+
         $.ajax({
             url: url,
             method: method,
@@ -589,6 +599,7 @@
                 loadNews();
                 $('#newsForm')[0].reset();
                 $('#newsId').val('');
+                tinymce.get('newsContent').setContent('');
             },
             error: function(err) {
                 alert('Error saving news: ' + err.responseText);
@@ -603,7 +614,7 @@
             success: function(news) {
                 $('#newsId').val(news.id);
                 $('#newsTitle').val(news.title);
-                $('#newsContent').val(news.content);
+                tinymce.get('newsContent').setContent(news.content);
                 $('#addNewsModal').modal('show');
             }
         });
