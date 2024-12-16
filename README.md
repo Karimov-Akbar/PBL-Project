@@ -10,7 +10,9 @@
 
 ## Features
 
-- 📰 **Dynamic News Generation**: Displays football news dynamically from the database.
+- 📋 **Dynamic Data Display**: All data is displayed dynamically if there have been changes in the database
+- 👨‍💻 **Admin Panel**: The admin panel where you can edit the data from pc and [telegram bot](@manchester_admin_bot)
+- 🌐 **Working with Api**: Integrated API for displaying information about club statistics
 - 🗂️ **Database Integration**: Utilizes SQLite databases for news, users, products, and gallery management.
 - 🌐 **Static File Serving**: Hosts and serves static files through the `public` directory.
 - 🛠️ **Modular Routing**: Organized routing for a scalable application.
