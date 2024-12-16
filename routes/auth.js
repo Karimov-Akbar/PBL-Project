@@ -24,30 +24,54 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+  if (!req.body || !req.body.username || !req.body.password) {
+    return res.status(400).json({ 
+      success: false, 
+      message: 'Username and password are required.' 
+    });
+  }
+
   const { username, password } = req.body;
   const query = `SELECT * FROM users WHERE username = ?`;
 
   db.get(query, [username], async (err, row) => {
     if (err) {
       console.error(err.message);
-      return res.json({ success: false, message: 'Error occurred during login.' });
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Error occurred during login.' 
+      });
     }
 
-    if (row) {
+    if (!row) {
+      return res.status(401).json({ 
+        success: false, 
+        message: 'Invalid username or password.' 
+      });
+    }
+
+    try {
       const match = await bcrypt.compare(password, row.password);
       if (match) {
-        if (row.is_admin) {
-          res.json({ success: true, redirect: '/admin/home' });
-        } else {
-          res.json({ success: true, redirect: '/home' });
-        }
+        res.json({ 
+          success: true, 
+          redirect: row.is_admin ? '/admin/home' : '/home' 
+        });
       } else {
-        res.json({ success: false, message: 'Invalid username or password.' });
+        res.status(401).json({ 
+          success: false, 
+          message: 'Invalid username or password.' 
+        });
       }
-    } else {
-      res.json({ success: false, message: 'Invalid username or password.' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Error occurred during login.' 
+      });
     }
   });
 });
 
 module.exports = router;
+

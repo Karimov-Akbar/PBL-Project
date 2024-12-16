@@ -52,7 +52,7 @@ const productRoutes = require('./routes/products');
 const adminRoutes = require('./routes/admin');
 
 app.use('/', mainRoutes);
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/gallery', galleryRoutes);
@@ -75,3 +75,4 @@ const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
