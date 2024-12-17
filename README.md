@@ -64,11 +64,6 @@ Ensure you have the following installed on your system:
    http://localhost:10000
    ```
 
-3. 🔎 Explore the app:
-
-   - 📰 View dynamic news.
-   - 🖼️ Access the gallery and other features.
-
 ## Project Structure
 
 ```plaintext
