@@ -72,7 +72,7 @@ Ensure you have the following installed on your system:
 ## Project Structure
 
 ```plaintext
-prosoccer/
+PBL-Project/
 ├── .git/               # Git version control files
 ├── .gitignore          # Ignored files for Git
 ├── app.js              # Main application file
